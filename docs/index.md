@@ -1,6 +1,7 @@
-# nbstore
+# mkdocs-nbstore
 
-nbstore is a tool for storing and managing images and other files in Jupyter notebooks.
+mkdocs-nbstore is a plugin for mkdocs that allows you
+to embed figures from Jupyter notebooks in your documentation.
 
 ## Installation
 
