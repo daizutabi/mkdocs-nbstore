@@ -10,8 +10,8 @@ class Image:
     classes: list[str]
     attributes: dict[str, str]
     markdown: str
+    mime: str | None
     content: bytes | str | None
-    suffix: str | None
 
     def __init__(self, alt: str, src: str, attrs: str) -> None:
         self.alt = alt
@@ -20,8 +20,8 @@ class Image:
         self.classes = []
         self.attributes = {}
         self.markdown = f"![{alt}]({src}){{{attrs}}}"
+        self.mime = None
         self.content = None
-        self.suffix = None
 
         for attr in shlex.split(attrs):
             if attr.startswith("#"):
@@ -32,9 +32,9 @@ class Image:
                 key, value = attr.split("=", 1)
                 self.attributes[key] = value
 
-    def set_content(self, content: bytes | str, suffix: str) -> None:
+    def set_mime_content(self, mime: str, content: bytes | str) -> None:
+        self.mime = mime
         self.content = content
-        self.suffix = suffix
 
     def __str__(self) -> str:
         attrs = [f"#{self.identifier}"] if self.identifier else []

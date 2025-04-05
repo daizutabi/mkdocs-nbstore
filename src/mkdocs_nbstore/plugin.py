@@ -54,7 +54,7 @@ class NbstorePlugin(BasePlugin[NbstoreConfig]):
             if isinstance(image, str):
                 markdowns.append(image)
             elif image.content is not None:
-                src = f"{uuid.uuid4()}{image.suffix}"
+                src = f"{uuid.uuid4()}{image.mime}"
                 src_uri = (Path(page.file.src_uri).parent / src).as_posix()
                 file = File.generated(config, src_uri, content=image.content)
                 self.files.append(file)

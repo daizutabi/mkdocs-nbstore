@@ -56,3 +56,25 @@ def test_iter_images():
     m = next(it)
     assert isinstance(m, str)
     assert m == "\n"
+
+
+def test_iter_images_empty():
+    from mkdocs_nbstore.image import Image
+    from mkdocs_nbstore.markdown import iter_images
+
+    it = iter_images("![a](){#b}")
+    m = next(it)
+    assert isinstance(m, Image)
+    assert m.alt == "a"
+    assert m.src == ""
+    assert m.identifier == "b"
+    assert m.markdown == "![a](){#b}"
+
+
+def test_iter_images_other():
+    from mkdocs_nbstore.markdown import iter_images
+
+    it = iter_images("![a](b.png){#c}")
+    m = next(it)
+    assert isinstance(m, str)
+    assert m == "![a](b.png){#c}"

@@ -80,7 +80,7 @@ def _iter_fenced_codes(
     return _iter(FENCED_CODE, text, pos, endpos)
 
 
-def _iter_matchs(
+def _iter_matches(
     pattern: re.Pattern,
     text: str,
     pos: int = 0,
@@ -95,7 +95,7 @@ def _iter_matchs(
 
 
 IMAGE_PATTERN = re.compile(
-    r"^!\[(?P<alt>.*?)\]\((?P<src>.*?\.ipynb)\)\{(?P<attr>.*?)\}",
+    r"^!\[(?P<alt>.*?)\]\((?P<src>.*?)\)\{(?P<attr>.*?)\}",
     re.MULTILINE | re.DOTALL,
 )
 
@@ -105,7 +105,7 @@ def _iter_images(
     pos: int = 0,
     endpos: int | None = None,
 ) -> Iterator[re.Match[str] | tuple[int, int]]:
-    return _iter_matchs(IMAGE_PATTERN, text, pos, endpos)
+    return _iter_matches(IMAGE_PATTERN, text, pos, endpos)
 
 
 def iter_images(
@@ -115,7 +115,11 @@ def iter_images(
 ) -> Iterator[Image | str]:
     for match in _iter_images(text, pos, endpos):
         if isinstance(match, re.Match):
-            yield Image(match.group("alt"), match.group("src"), match.group("attr"))
+            src = match.group("src")
+            if not src or src.endswith(".ipynb"):
+                yield Image(match.group("alt"), src, match.group("attr"))
+            else:
+                yield match.group(0)
 
         else:
             yield text[match[0] : match[1]]

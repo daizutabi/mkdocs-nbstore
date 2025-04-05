@@ -26,14 +26,12 @@ def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
         yield from get_source(image, store)
 
     try:
-        content_suffix = store.get_content(image.src, image.identifier)
+        mime_content = store.get_mime_content(image.src, image.identifier)
     except Exception:  # noqa: BLE001
         yield image.markdown
     else:
-        if not content_suffix:
-            yield image.markdown
-        else:
-            image.set_content(*content_suffix)
+        if mime_content:
+            image.set_mime_content(*mime_content)
             yield image
 
 

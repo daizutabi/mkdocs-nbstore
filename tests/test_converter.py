@@ -31,6 +31,7 @@ def test_convert_exception(store: Store):
 def test_convert_image_stdout(store: Store):
     markdown = "![a](matplotlib.ipynb){#stdout}"
     it = convert(markdown, store)
-    text = next(it)
-    assert isinstance(text, str)
-    assert text == markdown
+    image = next(it)
+    assert isinstance(image, Image)
+    assert image.mime == "text/plain"
+    assert image.content == "1"
