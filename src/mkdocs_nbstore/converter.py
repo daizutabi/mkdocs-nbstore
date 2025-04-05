@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
+from .logger import logger
 from .markdown import iter_images
 
 if TYPE_CHECKING:
@@ -17,25 +18,26 @@ def convert(markdown: str, store: Store) -> Iterator[str | Image]:
         if isinstance(image, str):
             yield image
         else:
-            yield from convert_image(image, store)
+            try:
+                yield from convert_image(image, store)
+            except ValueError:
+                logger.warning(f"Could not convert {image.src}#{image.identifier}")
+                yield image.markdown
 
 
 def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
     if "source" in image.classes:
         image.classes.remove("source")
-        yield from get_source(image, store)
+        if source := get_source(image, store):
+            yield source
 
-    try:
-        mime_content = store.get_mime_content(image.src, image.identifier)
-    except Exception:  # noqa: BLE001
-        yield image.markdown
-    else:
-        if mime_content:
-            image.set_mime_content(*mime_content)
-            yield image
+    if mime_content := store.get_mime_content(image.src, image.identifier):
+        yield image.update(*mime_content)
 
 
-def get_source(image: Image, store: Store) -> Iterator[str]:
+def get_source(image: Image, store: Store) -> str:
     if source := store.get_source(image.src, image.identifier):
         language = store.get_language(image.src)
-        yield f"```{language}\n{source}\n```\n\n"
+        return f"```{language}\n{source}\n```\n\n"
+
+    return ""

@@ -1,15 +1,15 @@
 from __future__ import annotations
 
-import uuid
 from pathlib import Path
 from typing import TYPE_CHECKING
 
 from mkdocs.config import Config, config_options
-from mkdocs.plugins import BasePlugin, get_plugin_logger
+from mkdocs.plugins import BasePlugin
 from mkdocs.structure.files import File
 from nbstore.store import Store
 
 from .converter import convert
+from .logger import logger
 
 if TYPE_CHECKING:
     from typing import Any
@@ -18,14 +18,13 @@ if TYPE_CHECKING:
     from mkdocs.structure.files import Files
     from mkdocs.structure.pages import Page
 
+    from .image import Image
+
 
 class NbstoreConfig(Config):
     """Configuration for Nbstore plugin."""
 
     notebook_dir = config_options.Type(str, default=".")
-
-
-logger = get_plugin_logger("mkdocs-nbstore")
 
 
 class NbstorePlugin(BasePlugin[NbstoreConfig]):
@@ -53,12 +52,20 @@ class NbstorePlugin(BasePlugin[NbstoreConfig]):
         for image in convert(markdown, self.store):
             if isinstance(image, str):
                 markdowns.append(image)
-            elif image.content is not None:
-                src = f"{uuid.uuid4()}{image.mime}"
-                src_uri = (Path(page.file.src_uri).parent / src).as_posix()
-                file = File.generated(config, src_uri, content=image.content)
-                self.files.append(file)
-                image.src = src
-                markdowns.append(str(image))
+
+            elif image.content:
+                for file in generate_files(image, page.file.src_uri, config):
+                    self.files.append(file)
+                markdowns.append(image.markdown)
 
         return "".join(markdowns)
+
+
+def generate_files(image: Image, page_uri: str, config: MkDocsConfig) -> list[File]:
+    src_uri = (Path(page_uri).parent / image.uri).as_posix()
+
+    info = f"{image.src}#{image.identifier} ({image.mime}) -> {src_uri}"
+    logger.debug(f"Creating image: {info}")
+
+    file = File.generated(config, src_uri, content=image.content)
+    return [file]
