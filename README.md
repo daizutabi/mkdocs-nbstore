@@ -46,7 +46,7 @@ In your markdown files, you can use the following syntax to embed
 figures from Jupyter notebooks:
 
 ```markdown
-![alt text](your-notebook.ipynb){#figure-identifier}
+![alt text](my-notebook.ipynb){#figure-identifier}
 ```
 
 The figure will be embedded from the Jupyter notebook
@@ -56,7 +56,7 @@ In your notebook's code cell,
 you can use a comment to identify the figure
 with a figure identifier that starts with `#`:
 
-```python title="../notebooks/your-notebook.ipynb"
+```python title="../notebooks/my-notebook.ipynb"
 # #figure-identifier
 import matplotlib.pyplot as plt
 
