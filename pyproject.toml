@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 name = "mkdocs-nbstore"
 version = "0.1.1"
-description = "Jupyter notebook store for mkdocs"
+description = "A MkDocs plugin for seamlessly embedding Jupyter notebook visualizations into documentation with simple Markdown syntax"
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [{ name = "daizutabi", email = "daizutabi@gmail.com" }]
