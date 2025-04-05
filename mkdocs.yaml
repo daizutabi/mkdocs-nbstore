@@ -1,9 +1,9 @@
-site_name: nbstore
-site_url: https://daizutabi.github.io/nbstore/
-site_description: Finite difference ray tracing
+site_name: mkdocs-nbstore
+site_url: https://daizutabi.github.io/mkdocs-nbstore/
+site_description: A plugin for mkdocs to convert notebooks to markdown
 site_author: daizutabi
-repo_url: https://github.com/daizutabi/nbstore/
-repo_name: daizutabi/nbstore
+repo_url: https://github.com/daizutabi/mkdocs-nbstore/
+repo_name: daizutabi/mkdocs-nbstore
 edit_uri: edit/main/docs/
 theme:
   name: material
@@ -53,4 +53,4 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Usage: usage/usage.md
-  # - Reference: $api/nbstore.***
+  - Reference: $api/mkdocs_nbstore.***
