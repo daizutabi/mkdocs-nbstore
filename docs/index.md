@@ -32,7 +32,8 @@ plugins:
       notebook_dir: ../notebooks
 ```
 
-`notebook_dir` is the directory containing your Jupyter notebooks.
+`notebook_dir` is the directory containing your Jupyter notebooks
+relative to the `docs_dir`.
 
 ## Usage
 
@@ -44,8 +45,7 @@ figures from Jupyter notebooks:
 ```
 
 The figure will be embedded from the Jupyter notebook
-located in the `notebook_dir`
-directory relative to the `docs_dir`.
+located in the `notebook_dir` directory.
 
 In your notebook's code cell,
 you can use a comment to identify the figure
