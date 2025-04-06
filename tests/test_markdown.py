@@ -79,3 +79,33 @@ def test_iter_images_other():
     m = next(it)
     assert isinstance(m, str)
     assert m == "![a](b.png){#c}"
+
+
+def test_iter_images_inline():
+    from mkdocs_nbstore.markdown import _iter_images
+
+    text = "`![a](b.ipynb){#c}`"
+    it = _iter_images(text)
+
+    m = next(it)
+    assert isinstance(m, tuple)
+    assert m == (0, len(text))
+
+
+def test_iter_images_inline_multi():
+    from mkdocs_nbstore.markdown import _iter_images
+
+    text = "``![a](b.ipynb){#c}``"
+    it = _iter_images(text)
+
+    m = next(it)
+    assert isinstance(m, tuple)
+    assert m == (0, 1)
+
+    m = next(it)
+    assert isinstance(m, tuple)
+    assert m == (1, len(text) - 1)
+
+    m = next(it)
+    assert isinstance(m, tuple)
+    assert m == (len(text) - 1, len(text))

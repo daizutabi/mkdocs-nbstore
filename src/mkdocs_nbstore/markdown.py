@@ -70,6 +70,7 @@ def _iter(
 
 
 FENCED_CODE = re.compile(r"^(?P<pre> *[~`]{3,}).*?^(?P=pre)", re.MULTILINE | re.DOTALL)
+INLINE_CODE = re.compile(r"`[^`]+?`", re.DOTALL)
 
 
 def _iter_fenced_codes(
@@ -91,7 +92,12 @@ def _iter_matches(
             yield match.start(), match.end()
 
         else:
-            yield from _iter(pattern, text, match[0], match[1])
+            for m in _iter(INLINE_CODE, text, match[0], match[1]):
+                if isinstance(m, re.Match):
+                    yield m.start(), m.end()
+
+                else:
+                    yield from _iter(pattern, text, m[0], m[1])
 
 
 IMAGE_PATTERN = re.compile(
