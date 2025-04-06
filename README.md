@@ -5,31 +5,63 @@
 [![Build Status][GHAction-image]][GHAction-link]
 [![Coverage Status][codecov-image]][codecov-link]
 
-mkdocs-nbstore is a plugin for MkDocs that allows you
-to embed figures from Jupyter notebooks into your documentation.
+<strong>Connect Jupyter notebooks to your MkDocs documentation</strong>
 
-Data scientists, researchers, and technical writers often face the
-challenge of incorporating visualizations from Jupyter notebooks
-into their documentation.
-Traditional approaches involve taking screenshots, exporting figures manually,
-or using complex embedding techniques - all of which create maintenance
-overhead and break the direct connection between code and documentation.
+mkdocs-nbstore is a plugin that seamlessly embeds Jupyter notebook
+visualizations in your documentation, solving the disconnect between
+code development and documentation.
 
-This plugin solves these challenges by providing a seamless bridge between
-your Jupyter notebooks and MkDocs documentation.
-With a simple markdown syntax, you can reference and embed specific
-figures directly from your notebooks, ensuring your documentation always
-displays the most current visualizations without manual intervention.
+## Why Use mkdocs-nbstore?
 
-## Installation
+### The Documentation Challenge
+
+Data scientists, researchers, and technical writers face a common dilemma:
+
+- **Development happens in notebooks** - ideal for experimentation and visualization
+- **Documentation lives in markdown** - perfect for narrative and explanation
+- **Connecting the two is painful** - screenshots break, exports get outdated
+
+### Our Solution
+
+This plugin creates a live bridge between your notebooks and documentation by:
+
+- **Keeping environments separate** - work in the tool best suited for each task
+- **Maintaining connections** - reference specific figures from notebooks
+- **Automating updates** - changes to notebooks reflect in documentation
+
+## Key Benefits
+
+- **True Separation of Concerns**:
+  Develop visualizations in Jupyter notebooks and write documentation
+  in markdown files, with each tool optimized for its purpose.
+
+- **Intuitive Markdown Syntax**:
+  Use standard image syntax with a simple extension to reference
+  notebook figures: `![alt text](notebook.ipynb){#figure-id}`
+
+- **Automatic Updates**:
+  When you modify your notebooks, your documentation updates
+  automatically in MkDocs serve mode.
+
+- **Clean Source Documents**:
+  Your markdown remains readable and focused on content, without
+  code distractions or complex embedding techniques.
+
+- **Enhanced Development Experience**:
+  Take advantage of IDE features like code completion and syntax
+  highlighting in the appropriate environment.
+
+## Quick Start
+
+### 1. Installation
 
 ```bash
 pip install mkdocs-nbstore
 ```
 
-## Configuration
+### 2. Configuration
 
-In your `mkdocs.yml`, add the following:
+Add to your `mkdocs.yml`:
 
 ```yaml
 plugins:
@@ -37,53 +69,49 @@ plugins:
       notebook_dir: ../notebooks
 ```
 
-`notebook_dir` is the directory containing your Jupyter notebooks
-relative to the `docs_dir`.
+### 3. Mark Figures in Your Notebook
 
-## Usage
+In your Jupyter notebook, identify figures with a comment:
 
-In your markdown files, you can use the following syntax to embed
-figures from Jupyter notebooks:
-
-```markdown
-![alt text](my-notebook.ipynb){#figure-identifier}
-```
-
-The figure will be embedded from the Jupyter notebook
-located in the `notebook_dir` directory.
-
-In your notebook's code cell,
-you can use a comment to identify the figure
-with a figure identifier that starts with `#`:
-
-```python title="../notebooks/my-notebook.ipynb"
-# #figure-identifier
+```python
+# #my-figure
 import matplotlib.pyplot as plt
 
-fig, ax = plt.subplots(figsize=(3, 2))
-ax.plot([1, 3, 2, 4])
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot([1, 2, 3, 4], [10, 20, 25, 30])
 ```
 
-## Why Use mkdocs-nbstore?
+### 4. Reference in Markdown
 
-This plugin offers several compelling benefits for data scientists, researchers, and technical documentation authors:
+Use standard Markdown image syntax with the figure identifier:
 
-- **Seamless Integration**: Directly embed Jupyter notebook visualizations in your MkDocs documentation with minimal effort.
+```markdown
+![Chart description](my-notebook.ipynb){#my-figure}
+```
 
-- **Separation of Concerns**: Keep your code in notebooks and your documentation in Markdown files, while maintaining a direct connection between them.
+## Advanced Usage
 
-- **Simple Syntax**: Use familiar Markdown image syntax with a small extension to reference notebook figures.
+For more detailed information on how to use mkdocs-nbstore, see:
 
-- **Precise Figure Selection**: Target specific visualizations within notebooks using simple comments.
+- [Notebook Configuration](usage/notebook.md) - Setting up notebook directories
+- [Class Options](usage/class.md) - Control how notebook content is displayed
+<!-- - [Workflow Tips](usage/workflow.md) - Best practices for documentation -->
 
-- **Automatic Updates**: When you update your notebooks, your documentation visuals update
-  automatically in MkDocs serve mode.
+## The Power of Separation
 
-- **Improved Documentation Workflow**: Create visualizations in the ideal environment (Jupyter) and use them in your documentation without screenshot workflows or manual exports.
+Creating documentation and developing visualizations involve different
+workflows and timeframes. When building visualizations in Jupyter notebooks,
+you need rapid cycles of execution, verification, and modification.
 
-- **Clean Documentation Source**: Your Markdown remains clean and readable, with no need for complex embedding code.
+This plugin is designed specifically to address these separation of
+concerns, allowing you to:
 
-Whether you're documenting data science projects, research findings, or technical implementations, mkdocs-nbstore streamlines the process of including visualizations in your documentation.
+- **Focus on code** in notebooks without documentation distractions
+- **Focus on narrative** in markdown without code interruptions
+- **Maintain powerful connections** between both environments
+
+Each environment is optimized for its purpose, while the plugin
+handles the integration automatically.
 
 ## Contributing
 
