@@ -37,6 +37,7 @@ dev = [
   "ipykernel>=6.29.5",
   "matplotlib>=3.10.1",
   "mkdocs-material>=9.6.11",
+  "nbconvert>=7.16.6",
   "pandas>=2.2",
   "polars>=1.26",
   "pytest-clarity>=1.0.1",

@@ -1,4 +1,4 @@
-# Class Options
+# Display Control Options
 
 mkdocs-nbstore provides several class options that
 allow you to control how Jupyter notebook content is
@@ -24,6 +24,53 @@ This produces the following output:
 This default behavior is ideal for when you only want
 to show visualizations without the accompanying code.
 
+### Automatic Fallback to Source Code
+
+If the referenced cell has no output (for example, if the cell
+hasn't been executed or doesn't produce a visual output),
+the plugin will automatically display the cell's source code instead.
+
+This fallback mechanism ensures that:
+
+- Your documentation is never left with "missing" content
+- Readers can still understand what code should produce an output
+- You can identify cells that need to be executed in your notebooks
+
+**Example of fallback behavior:**
+
+```markdown
+![alt text](){#func}
+```
+
+This produces the following output (since the referenced cell has no visual output):
+
+![alt](){#func}
+
+!!! note
+    Here we use empty parentheses `()` to tell the plugin
+    to use the most recently referenced notebook (in this case `class.ipynb`).
+    See [Automatic Notebook Selection](notebook.md#automatic-notebook-selection)
+    for more details.
+
+### Designed for Non-Visual Code
+
+This automatic fallback is especially useful for cells that
+intentionally don't produce visual output, such as:
+
+- Function definitions
+- Class declarations
+- Data preparation code
+- Configuration settings
+
+This design makes the workflow more intuitive - the plugin automatically shows the
+source code for cells without visual output, making your documentation process
+simpler and more efficient. No additional configuration is needed for these
+common scenarios.
+
+This automatic fallback makes your documentation more robust and
+helps identify when notebook cells need to be executed to generate
+expected visualizations.
+
 ## Source Code Only: `.source` Option
 
 The `.source` option instructs mkdocs-nbstore to
@@ -45,10 +92,6 @@ This option is useful when:
 - You want to explain the code that generates a visualization
 - The code itself is the primary focus
 - You're creating tutorials where readers should focus on implementation
-
-!!! note
-    Here we use an empty parentheses `()` to tell the plugin
-    to use the active notebook `class.ipynb`.
 
 ## Complete Cell: `.cell` Option
 
