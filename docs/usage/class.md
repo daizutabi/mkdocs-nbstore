@@ -90,7 +90,7 @@ Here, we use two additional attributes:
 - `hl_lines="3 4"` to highlight lines 3 and 4 in the source code
 
 For more information on how to use the `title` and `hl_lines` attributes,
-see the ["Adding a title"][title] and ["Highlighting specific lines"][hl_lines]
+see the [Adding a title][title] and [Highlighting specific lines][hl_lines]
 from the MkDocs Material documentation.
 
 [title]: https://squidfunk.github.io/mkdocs-material/reference/code-blocks/#adding-a-title
