@@ -33,6 +33,8 @@ project/
 
 All notebooks in the `notebooks` directory will be available
 to reference in your markdown files.
+The `notebook_dir` can contain subdirectories, and all
+notebooks in the subdirectories will also be available.
 
 ## Referencing Notebooks in Markdown
 
@@ -97,4 +99,43 @@ When you look at your notebook, you can immediately identify
 cells that will be referenced in the documentation by looking
 for the `# #identifier` pattern at the top of the cell.
 
-## notebook
+## Automatic Notebook Selection
+
+When working with multiple figures from the same notebook,
+you can simplify your markdown by omitting the notebook filename
+in subsequent references. The plugin will automatically use
+the most recently specified notebook.
+
+**Example:**
+
+```markdown
+![First Chart](visualization.ipynb){#figure-1}
+
+![Second Chart](){#figure-2}  <!-- Uses visualization.ipynb -->
+
+Some text between figures...
+
+![Third Chart](analysis.ipynb){#figure-3}
+
+![Fourth Chart](){#figure-4}  <!-- Uses analysis.ipynb -->
+```
+
+### How It Works
+
+The plugin keeps track of the most recently referenced notebook:
+
+1. When a notebook is explicitly specified, it becomes the "active" notebook
+2. Empty parentheses `()` tell the plugin to use the active notebook
+3. Any new explicit notebook reference updates the active notebook
+
+### Benefits
+
+This feature significantly reduces maintenance effort:
+
+- **Less repetition** in your markdown files
+- **Easier refactoring** - if you rename a notebook, you only need
+  to update the first reference, not every occurrence
+- **Cleaner documentation source** with fewer duplicate filenames
+
+This approach is particularly useful for pages that reference multiple
+figures from the same notebook in sequence.
