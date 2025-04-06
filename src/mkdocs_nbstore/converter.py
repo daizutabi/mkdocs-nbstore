@@ -26,6 +26,7 @@ def convert(markdown: str, store: Store) -> Iterator[str | Image]:
 
 
 def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
+    print(image)
     if image.pop(".source"):
         yield from get_source(image, store)
         return
