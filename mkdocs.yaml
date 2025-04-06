@@ -53,6 +53,6 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Usage:
-      - Matplotlib: usage/matplotlib.md
+      - Class: usage/class.md
       - HTML: usage/html.md
   - Reference: $api/mkdocs_nbstore.***

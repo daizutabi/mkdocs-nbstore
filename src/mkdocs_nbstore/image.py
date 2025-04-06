@@ -32,5 +32,9 @@ class Image:
     def __contains__(self, attr: str) -> bool:
         return attr in self.attr.split(" ")
 
-    def remove(self, attr: str) -> None:
+    def pop(self, attr: str, default: str | None = None) -> str | None:
+        if attr not in self:
+            return default
+
         self.attr = " ".join(x for x in self.attr.split(" ") if x != attr)
+        return attr

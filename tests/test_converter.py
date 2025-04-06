@@ -4,8 +4,8 @@ from mkdocs_nbstore.converter import convert
 from mkdocs_nbstore.image import Image
 
 
-def test_convert(store: Store):
-    markdown = "![a](matplotlib.ipynb){#matplotlib .source}\n\na"
+def test_convert_cell(store: Store):
+    markdown = "![a](matplotlib.ipynb){#matplotlib .cell}\n\na"
     it = convert(markdown, store)
 
     source = next(it)
@@ -14,6 +14,19 @@ def test_convert(store: Store):
 
     image = next(it)
     assert isinstance(image, Image)
+
+    text = next(it)
+    assert isinstance(text, str)
+    assert text == "\n\na"
+
+
+def test_convert_source(store: Store):
+    markdown = "![a](matplotlib.ipynb){#matplotlib .source}\n\na"
+    it = convert(markdown, store)
+
+    source = next(it)
+    assert isinstance(source, str)
+    assert source.startswith("```{.python}\n")
 
     text = next(it)
     assert isinstance(text, str)

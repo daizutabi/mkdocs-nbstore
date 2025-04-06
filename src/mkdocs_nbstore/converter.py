@@ -26,18 +26,18 @@ def convert(markdown: str, store: Store) -> Iterator[str | Image]:
 
 
 def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
-    if ".source" in image:
-        image.remove(".source")
-        if source := get_source(image, store):
-            yield source
+    if image.pop(".source"):
+        yield from get_source(image, store)
+        return
+
+    if image.pop(".cell"):
+        yield from get_source(image, store)
 
     if mime_content := store.get_mime_content(image.src, image.identifier):
         yield image.update(*mime_content)
 
 
-def get_source(image: Image, store: Store) -> str:
+def get_source(image: Image, store: Store) -> Iterator[str]:
     if source := store.get_source(image.src, image.identifier):
         language = store.get_language(image.src)
-        return f"```{{.{language}{image.attr}}}\n{source}\n```\n\n"
-
-    return ""
+        yield f"```{{.{language}{image.attr}}}\n{source}\n```\n\n"
