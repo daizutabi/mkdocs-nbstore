@@ -65,9 +65,9 @@ class NbstorePlugin(BasePlugin[NbstoreConfig]):
 
 
 def generate_files(image: Image, page_uri: str, config: MkDocsConfig) -> list[File]:
-    src_uri = (Path(page_uri).parent / image.uri).as_posix()
+    src_uri = (Path(page_uri).parent / image.src).as_posix()
 
-    info = f"{image.src}#{image.identifier} ({image.mime}) -> {src_uri}"
+    info = f"{image.url}#{image.identifier} ({image.mime}) -> {src_uri}"
     logger.debug(f"Creating image: {info}")
 
     file = File.generated(config, src_uri, content=image.content)

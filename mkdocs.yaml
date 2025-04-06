@@ -37,6 +37,8 @@ plugins:
   - mkdocs-nbstore:
       notebook_dir: ../notebooks
 markdown_extensions:
+  - admonition
+  - md_in_html
   - pymdownx.magiclink
   - pymdownx.highlight:
       use_pygments: true
@@ -51,4 +53,5 @@ nav:
       - usage/notebook.md
       - usage/class.md
   - Examples:
+      - examples/format.md
       - examples/html.md

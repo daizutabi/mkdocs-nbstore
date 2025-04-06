@@ -11,17 +11,25 @@ if TYPE_CHECKING:
 @dataclass
 class Image:
     alt: str
-    src: str
-    identifier: str
-    attr: str
-    mime: str = ""
-    content: bytes | str = ""
-    uri: str = ""
+    """The alternative text for the image."""
 
-    @property
-    def markdown(self) -> str:
-        src = self.uri or self.src
-        return f"![{self.alt}]({src}){{#{self.identifier}{self.attr}}}"
+    url: str
+    """The Notebook URL of the image."""
+
+    identifier: str
+    """The identifier of the image."""
+
+    attr: str
+    """The attributes of the image."""
+
+    mime: str = ""
+    """The MIME type of the image."""
+
+    content: bytes | str = ""
+    """The content of the image."""
+
+    src: str = ""
+    """The source URI of the image in MkDocs."""
 
     def __contains__(self, attr: str) -> bool:
         return attr in self.attr.split(" ")
@@ -39,5 +47,14 @@ class Image:
 
         self.mime = mime
         self.content = content
-        self.uri = f"{uuid.uuid4()}.{mime.split('/')[1]}"
+        self.src = f"{uuid.uuid4()}.{get_suffix(mime)}"
         return self
+
+    @property
+    def markdown(self) -> str:
+        src = self.src or self.url
+        return f"![{self.alt}]({src}){{#{self.identifier}{self.attr}}}"
+
+
+def get_suffix(mime: str) -> str:
+    return mime.split("/")[1].split("+")[0]

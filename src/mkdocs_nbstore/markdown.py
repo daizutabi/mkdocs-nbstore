@@ -95,7 +95,7 @@ def _iter_matches(
 
 
 IMAGE_PATTERN = re.compile(
-    r"^!\[(?P<alt>.*?)\]\((?P<src>.*?)\)\{#(?P<id>[^}\s]+)(?P<attr>.*?)\}",
+    r"^!\[(?P<alt>.*?)\]\((?P<url>.*?)\)\{#(?P<id>[^}\s]+)(?P<attr>.*?)\}",
     re.MULTILINE | re.DOTALL,
 )
 
@@ -115,9 +115,9 @@ def iter_images(
 ) -> Iterator[Image | str]:
     for m in _iter_images(text, pos, endpos):
         if isinstance(m, re.Match):
-            src = m.group("src")
-            if not src or src.endswith(".ipynb"):
-                yield Image(m.group("alt"), src, m.group("id"), m.group("attr"))
+            url = m.group("url")
+            if not url or url.endswith(".ipynb"):
+                yield Image(m.group("alt"), url, m.group("id"), m.group("attr"))
             else:
                 yield m.group(0)
 
