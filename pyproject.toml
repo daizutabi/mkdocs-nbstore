@@ -28,7 +28,6 @@ dependencies = ["mkdocs>=1.6", "nbstore"]
 Documentation = "https://daizutabi.github.io/mkdocs-nbstore/"
 Source = "https://github.com/daizutabi/mkdocs-nbstore"
 Issues = "https://github.com/daizutabi/mkdocs-nbstore/issues"
-Changelog = "https://github.com/daizutabi/mkdocs-nbstore/blob/main/CHANGELOG.md"
 
 [project.entry-points."mkdocs.plugins"]
 mkdocs-nbstore = "mkdocs_nbstore.plugin:NbstorePlugin"
