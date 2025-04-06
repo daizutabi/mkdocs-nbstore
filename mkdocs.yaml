@@ -40,7 +40,6 @@ plugins:
   - search
   - mkdocs-nbstore:
       notebook_dir: ../notebooks
-  - mkapi
 markdown_extensions:
   - pymdownx.magiclink
   - pymdownx.highlight:
@@ -56,4 +55,3 @@ nav:
       - usage/notebook.md
       - usage/class.md
       - usage/html.md
-  - Reference: $api/mkdocs_nbstore.***

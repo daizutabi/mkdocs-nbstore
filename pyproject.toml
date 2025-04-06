@@ -37,7 +37,6 @@ mkdocs-nbstore = "mkdocs_nbstore.plugin:NbstorePlugin"
 dev = [
   "ipykernel>=6.29.5",
   "matplotlib>=3.10.1",
-  "mkapi>=4.2.4",
   "mkdocs-material>=9.6.11",
   "pandas>=2.2",
   "polars>=1.26",

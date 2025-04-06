@@ -58,7 +58,7 @@ pip install mkdocs-nbstore
 
 Add to your `mkdocs.yml`:
 
-```yaml
+```yaml title="mkdocs.yml"
 plugins:
   - mkdocs-nbstore:
       notebook_dir: ../notebooks
@@ -68,7 +68,7 @@ plugins:
 
 In your Jupyter notebook, identify figures with a comment:
 
-```python
+```python title="my-notebook.ipynb"
 # #my-figure
 import matplotlib.pyplot as plt
 
