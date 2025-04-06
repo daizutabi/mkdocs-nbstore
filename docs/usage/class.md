@@ -33,18 +33,22 @@ its output.
 **Example:**
 
 ```markdown
-![alt text](class.ipynb){#image .source}
+![alt text](){#image .source}
 ```
 
 This produces the following output:
 
-![alt](class.ipynb){#image .source}
+![alt](){#image .source}
 
 This option is useful when:
 
 - You want to explain the code that generates a visualization
 - The code itself is the primary focus
 - You're creating tutorials where readers should focus on implementation
+
+!!! note
+    Here we use an empty parentheses `()` to tell the plugin
+    to use the active notebook `class.ipynb`.
 
 ## Complete Cell: `.cell` Option
 
@@ -55,12 +59,12 @@ Jupyter notebooks.
 **Example:**
 
 ```markdown
-![alt text](class.ipynb){#image .cell}
+![alt text](){#image .cell}
 ```
 
 This produces the following output:
 
-![alt](class.ipynb){#image .cell}
+![alt](){#image .cell}
 
 This option provides a comprehensive view and is ideal for:
 
@@ -77,12 +81,12 @@ them with other standard Markdown attributes:
 **Example:**
 
 ```markdown
-![alt](class.ipynb){#image .source title="My title" hl_lines="3 4"}
+![alt](){#image .source title="My title" hl_lines="3 4"}
 ```
 
 This produces the following output:
 
-![alt](class.ipynb){#image .source title="My title" hl_lines="3 4"}
+![alt](){#image .source title="My title" hl_lines="3 4"}
 
 Here, we use two additional attributes:
 

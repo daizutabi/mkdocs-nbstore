@@ -16,7 +16,7 @@ def test_iter_images_internal():
 
     m = next(it)
     assert isinstance(m, re.Match)
-    assert m.group("src") == "b.ipynb"
+    assert m.group("url") == "b.ipynb"
     assert m.group("id") == "c"
     assert m.group("attr") == ""
 
@@ -42,7 +42,7 @@ def test_iter_images():
     m = next(it)
     assert isinstance(m, Image)
     assert m.alt == "a"
-    assert m.src == "b.ipynb"
+    assert m.url == "b.ipynb"
     assert m.identifier == "c"
     assert m.markdown == "![a](b.ipynb){#c}"
 
@@ -67,7 +67,7 @@ def test_iter_images_empty():
     m = next(it)
     assert isinstance(m, Image)
     assert m.alt == "a"
-    assert m.src == ""
+    assert m.url == ""
     assert m.identifier == "b"
     assert m.markdown == "![a](){#b}"
 

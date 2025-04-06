@@ -21,12 +21,11 @@ def convert(markdown: str, store: Store) -> Iterator[str | Image]:
             try:
                 yield from convert_image(image, store)
             except ValueError:
-                logger.warning(f"Could not convert {image.src}#{image.identifier}")
+                logger.warning(f"Could not convert {image.url}#{image.identifier}")
                 yield image.markdown
 
 
 def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
-    print(image)
     if image.pop(".source"):
         yield from get_source(image, store)
         return
@@ -34,11 +33,11 @@ def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
     if image.pop(".cell"):
         yield from get_source(image, store)
 
-    if mime_content := store.get_mime_content(image.src, image.identifier):
+    if mime_content := store.get_mime_content(image.url, image.identifier):
         yield image.convert(*mime_content)
 
 
 def get_source(image: Image, store: Store) -> Iterator[str]:
-    if source := store.get_source(image.src, image.identifier):
-        language = store.get_language(image.src)
+    if source := store.get_source(image.url, image.identifier):
+        language = store.get_language(image.url)
         yield f"```{{.{language}{image.attr}}}\n{source}\n```\n\n"
