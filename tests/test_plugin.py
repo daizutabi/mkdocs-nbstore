@@ -93,5 +93,7 @@ def test_on_page_markdown_error():
         pass
 
     plugin = FakePlugin()
+    plugin.__class__.store = None
+
     with pytest.raises(RuntimeError):
         plugin.on_page_markdown("", None, None)  # type: ignore
