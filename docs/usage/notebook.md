@@ -46,7 +46,7 @@ notebooks using the standard Markdown image syntax with attributes:
 Where:
 
 - `Alt text` is the alternative text for the image
-- `notebook-name.ipynb` is the path to the notebook file,
+- `visualization.ipynb` is the path to the notebook file,
   relative to the `notebook_dir` (See the directory tree above)
 - `#figure-identifier` is the identifier for the specific
   figure in the notebook
@@ -56,21 +56,45 @@ content is displayed, see the [Class Options](class.md) page.
 
 ## Identifying Figures in the Notebook
 
-To identify a figure in the notebook, you can use the normal Python
-commenting syntax. For example:
+In your Jupyter notebook, you need to mark which figures you want
+to reference in your documentation. This is done using a special
+comment format at the beginning of a code cell.
 
-```python
-# #figure-identifier
-plt.plot([1, 2, 3, 4])
+**Example:**
+
+```python title="visualization.ipynb"
+# #my-figure
+import matplotlib.pyplot as plt
+
+fig, ax = plt.subplots(figsize=(8, 4))
+ax.plot([1, 2, 3, 4], [10, 20, 25, 30])
+ax.set_title('Sample Visualization')
 ```
 
-The comment must be the first non-empty line in the cell.
-The first `#` is the comment character, and the second `#` is the
-identifier prefix. One space is required between these two `#`s.
-This will create a figure with the identifier `#figure-identifier`.
-When you work with the notebook in the browser or editor,
-you can easily add this identifier as a comment.
-There are no hidden structures in the notebook that you need to
-work around, for example, by adding a cell tag or metadata.
-You can always recognize whether a figure has an identifier by
-checking whether the cell starts with `# #figure-identifier`.
+The comment format has the following rules:
+
+- It must be the first non-empty line in the cell
+- It starts with a Python comment character (`#`) followed by a space
+- Then comes the figure identifier, which also starts with `#`
+- Example: `# #my-figure` identifies a figure with the ID `my-figure`
+
+You can then reference this figure in your markdown:
+
+```markdown
+![Sample Chart](visualization.ipynb){#my-figure}
+```
+
+### Benefits of This Approach
+
+This identifier method is:
+
+- Simple to add and recognize in your notebooks
+- Visible during normal notebook editing
+- Doesn't require special cell tags or hidden metadata
+- Maintains notebook usability for non-documentation purposes
+
+When you look at your notebook, you can immediately identify
+cells that will be referenced in the documentation by looking
+for the `# #identifier` pattern at the top of the cell.
+
+## notebook
