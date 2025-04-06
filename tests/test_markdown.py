@@ -17,7 +17,8 @@ def test_iter_images_internal():
     m = next(it)
     assert isinstance(m, re.Match)
     assert m.group("src") == "b.ipynb"
-    assert m.group("attr") == "#c"
+    assert m.group("id") == "c"
+    assert m.group("attr") == ""
 
     m = next(it)
     assert m == (17, 19)

@@ -52,4 +52,8 @@ markdown_extensions:
       alternate_style: true
 nav:
   - Home: index.md
+  - Usage:
+      - usage/notebook.md
+      - usage/class.md
+      - usage/html.md
   - Reference: $api/mkdocs_nbstore.***
