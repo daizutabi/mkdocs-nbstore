@@ -34,6 +34,10 @@ This plugin creates a live bridge between your notebooks and documentation by:
   Use standard image syntax with a simple extension to reference
   notebook figures: `![alt text](notebook.ipynb){#figure-id}`
 
+- **Dynamic Notebook Execution**:
+  Execute notebooks on-demand during documentation builds with the
+  `.execute` option, ensuring results are always up-to-date.
+
 - **Automatic Updates**:
   When you modify your notebooks, your documentation updates
   automatically in MkDocs serve mode.
@@ -89,7 +93,8 @@ Use standard Markdown image syntax with the figure identifier:
 For more detailed information on how to use mkdocs-nbstore, see:
 
 - [Notebook Configuration](usage/notebook.md) - Setting up notebook directories
-- [Class Options](usage/class.md) - Control how notebook content is displayed
+- [Display Options](usage/class.md) - Control how notebook content is displayed
+- [Execute Option](usage/execute.md) - Run notebooks during documentation builds
 <!-- - [Workflow Tips](usage/workflow.md) - Best practices for documentation -->
 
 ## The Power of Separation

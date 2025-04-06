@@ -54,7 +54,7 @@ Where:
   figure in the notebook
 
 For more information about using class options to control how notebook
-content is displayed, see the [Class Options](class.md) page.
+content is displayed, see the [Display Control Options](class.md) page.
 
 ## Identifying Figures in the Notebook
 

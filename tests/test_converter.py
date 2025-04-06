@@ -47,3 +47,10 @@ def test_convert_image_stdout(store: Store):
     text = next(it)
     assert isinstance(text, str)
     assert text == "1"
+
+
+def test_convert_execute(store: Store):
+    store.executed.clear()
+    markdown = "![a](matplotlib.ipynb){#matplotlib .execute}"
+    list(convert(markdown, store))
+    assert store.executed

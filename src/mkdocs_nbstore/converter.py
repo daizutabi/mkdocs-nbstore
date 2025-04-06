@@ -26,15 +26,23 @@ def convert(markdown: str, store: Store) -> Iterator[str | Image]:
 
 
 def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
+    if image.pop(".execute") and store.needs_execution(image.url):
+        path = store.get_abs_path(image.url)
+        logger.info(f"Executing notebook: {path}")
+        store.execute(image.url)
+
     if image.pop(".source"):
         yield from get_source(image, store)
         return
 
-    if image.pop(".cell"):
+    if has_cell := image.pop(".cell"):
         yield from get_source(image, store)
 
     if mime_content := store.get_mime_content(image.url, image.identifier):
         yield image.convert(*mime_content)
+
+    elif not has_cell:
+        yield from get_source(image, store)
 
 
 def get_source(image: Image, store: Store) -> Iterator[str]:

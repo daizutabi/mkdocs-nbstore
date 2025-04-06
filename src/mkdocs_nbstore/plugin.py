@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, ClassVar
 
 from mkdocs.config import Config, config_options
 from mkdocs.plugins import BasePlugin
@@ -28,13 +28,17 @@ class NbstoreConfig(Config):
 
 
 class NbstorePlugin(BasePlugin[NbstoreConfig]):
-    store: Store
+    store: ClassVar[Store | None] = None
     files: Files
 
     def on_config(self, config: MkDocsConfig, **kwargs: Any) -> MkDocsConfig:
-        path = (Path(config.docs_dir) / self.config.notebook_dir).resolve()
-        self.store = Store(path)
-        config.watch.append(path.as_posix())
+        notebook_dir = (Path(config.docs_dir) / self.config.notebook_dir).resolve()
+
+        store = self.__class__.store
+
+        if store is None or store.notebook_dir != notebook_dir:
+            self.__class__.store = Store(notebook_dir)
+            config.watch.append(notebook_dir.as_posix())
 
         _update_extensions(config)
 
@@ -51,8 +55,13 @@ class NbstorePlugin(BasePlugin[NbstoreConfig]):
         config: MkDocsConfig,
         **kwargs: Any,
     ) -> str:
+        if self.__class__.store is None:
+            msg = "Store must be initialized before processing markdown"
+            logger.error(msg)
+            raise RuntimeError(msg)
+
         markdowns = []
-        for image in convert(markdown, self.store):
+        for image in convert(markdown, self.__class__.store):
             if isinstance(image, str):
                 markdowns.append(image)
 

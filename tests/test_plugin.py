@@ -86,3 +86,14 @@ def test_build(config: MkDocsConfig):
     assert isinstance(plugin, NbstorePlugin)
 
     build(config, dirty=False)
+
+
+def test_on_page_markdown_error():
+    class FakePlugin(NbstorePlugin):
+        pass
+
+    plugin = FakePlugin()
+    plugin.__class__.store = None
+
+    with pytest.raises(RuntimeError):
+        plugin.on_page_markdown("", None, None)  # type: ignore
