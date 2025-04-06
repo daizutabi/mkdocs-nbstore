@@ -50,4 +50,5 @@ nav:
   - Usage:
       - usage/notebook.md
       - usage/class.md
-      - usage/html.md
+  - Examples:
+      - examples/html.md

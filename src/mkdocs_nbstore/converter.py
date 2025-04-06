@@ -34,7 +34,7 @@ def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
         yield from get_source(image, store)
 
     if mime_content := store.get_mime_content(image.src, image.identifier):
-        yield image.update(*mime_content)
+        yield image.convert(*mime_content)
 
 
 def get_source(image: Image, store: Store) -> Iterator[str]:

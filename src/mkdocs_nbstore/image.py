@@ -18,12 +18,6 @@ class Image:
     content: bytes | str = ""
     uri: str = ""
 
-    def update(self, mime: str, content: bytes | str) -> Self:
-        self.mime = mime
-        self.content = content
-        self.uri = f"{uuid.uuid4()}.{mime.split('/')[1]}"
-        return self
-
     @property
     def markdown(self) -> str:
         src = self.uri or self.src
@@ -38,3 +32,12 @@ class Image:
 
         self.attr = " ".join(x for x in self.attr.split(" ") if x != attr)
         return attr
+
+    def convert(self, mime: str, content: bytes | str) -> Self | str:
+        if mime.startswith("text/") and isinstance(content, str):
+            return content
+
+        self.mime = mime
+        self.content = content
+        self.uri = f"{uuid.uuid4()}.{mime.split('/')[1]}"
+        return self
