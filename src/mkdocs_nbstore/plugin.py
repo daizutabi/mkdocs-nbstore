@@ -35,6 +35,9 @@ class NbstorePlugin(BasePlugin[NbstoreConfig]):
         path = (Path(config.docs_dir) / self.config.notebook_dir).resolve()
         self.store = Store(path)
         config.watch.append(path.as_posix())
+
+        _update_extensions(config)
+
         return config
 
     def on_files(self, files: Files, config: MkDocsConfig, **kwargs: Any) -> Files:
@@ -69,3 +72,9 @@ def generate_files(image: Image, page_uri: str, config: MkDocsConfig) -> list[Fi
 
     file = File.generated(config, src_uri, content=image.content)
     return [file]
+
+
+def _update_extensions(config: MkDocsConfig) -> None:
+    for name in ["attr_list"]:
+        if name not in config.markdown_extensions:
+            config.markdown_extensions.append(name)
