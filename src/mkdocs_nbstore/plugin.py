@@ -56,7 +56,9 @@ class NbstorePlugin(BasePlugin[NbstoreConfig]):
         **kwargs: Any,
     ) -> str:
         if self.__class__.store is None:
-            return markdown
+            msg = "Store must be initialized before processing markdown"
+            logger.error(msg)
+            raise RuntimeError(msg)
 
         markdowns = []
         for image in convert(markdown, self.__class__.store):

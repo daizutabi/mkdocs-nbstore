@@ -73,7 +73,7 @@ unfixable = ["F401"]
 ignore = ["ANN401", "ARG001", "ARG002", "D"]
 
 [tool.ruff.lint.per-file-ignores]
-"**/tests/*" = ["ANN", "ARG", "D", "FBT", "PLR", "RUF", "S"]
+"**/tests/*" = ["ANN", "ARG", "D", "FBT", "PLR", "RUF", "S", "PGH003"]
 "**/notebooks/*" = ["ANN", "ERA001", "NPY", "T201"]
 
 [tool.pyright]
