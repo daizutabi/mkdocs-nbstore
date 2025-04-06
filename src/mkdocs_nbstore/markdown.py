@@ -95,7 +95,7 @@ def _iter_matches(
 
 
 IMAGE_PATTERN = re.compile(
-    r"^!\[(?P<alt>.*?)\]\((?P<src>.*?)\)\{#(?P<id>\S+)(?P<attr>.*?)\}",
+    r"^!\[(?P<alt>.*?)\]\((?P<src>.*?)\)\{#(?P<id>[^}\s]+)(?P<attr>.*?)\}",
     re.MULTILINE | re.DOTALL,
 )
 
