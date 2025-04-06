@@ -53,6 +53,7 @@ nav:
   - Usage:
       - usage/notebook.md
       - usage/class.md
+      - usage/execute.md
   # - Examples:
   #     - examples/format.md
   #     - examples/html.md
