@@ -52,4 +52,7 @@ markdown_extensions:
       alternate_style: true
 nav:
   - Home: index.md
+  - Usage:
+      - Matplotlib: usage/matplotlib.md
+      - HTML: usage/html.md
   - Reference: $api/mkdocs_nbstore.***

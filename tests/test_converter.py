@@ -10,7 +10,7 @@ def test_convert(store: Store):
 
     source = next(it)
     assert isinstance(source, str)
-    assert source.startswith("```python\n")
+    assert source.startswith("```{.python}\n")
 
     image = next(it)
     assert isinstance(image, Image)

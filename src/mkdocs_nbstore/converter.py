@@ -26,8 +26,8 @@ def convert(markdown: str, store: Store) -> Iterator[str | Image]:
 
 
 def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
-    if "source" in image.classes:
-        image.classes.remove("source")
+    if ".source" in image:
+        image.remove(".source")
         if source := get_source(image, store):
             yield source
 
@@ -38,6 +38,6 @@ def convert_image(image: Image, store: Store) -> Iterator[str | Image]:
 def get_source(image: Image, store: Store) -> str:
     if source := store.get_source(image.src, image.identifier):
         language = store.get_language(image.src)
-        return f"```{language}\n{source}\n```\n\n"
+        return f"```{{.{language}{image.attr}}}\n{source}\n```\n\n"
 
     return ""

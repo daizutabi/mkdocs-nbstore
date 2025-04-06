@@ -59,7 +59,7 @@ fig, ax = plt.subplots(figsize=(3, 2))
 ax.plot([1, 3, 2, 4])
 ```
 
-![alt text](matplotlib.ipynb){#matplotlib}
+![alt text](index.ipynb){#index}
 
 ## Why Use mkdocs-nbstore?
 
